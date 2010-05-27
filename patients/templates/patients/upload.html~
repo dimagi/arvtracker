@@ -1,0 +1,8 @@
+<h1>Upload csv file</h1>
+
+<form enctype="multipart/form-data" action="{% url waiting.patients.views.uploader %}" method="POST">
+<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+Choose a file to upload: <input name="uploadedfile" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
+

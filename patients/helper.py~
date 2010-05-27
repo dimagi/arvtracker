@@ -1,0 +1,51 @@
+from models import Patient
+import datetime
+
+def handle_uploaded_file(f):
+    for line in f:
+        patient_id = line[0]
+        date = get_date(line[1])
+        std = get_date(line[2])
+        program = line[3]
+        age = line[4]
+        sex = line[5]
+        enroll_d = get_date(line[6])
+        f250v = line[7]
+        f250d = get_date(line[8])
+        patient = Patient(patient_id=patient_id, date=date, std=std, program=program, age=age, sex=sex, enroll_d=enroll_d, f250v=f250v, f250d=f250d)
+        patient.save()
+
+def get_date(date_string):
+    if len(date_string) > 0:
+        day = date_string[0:1]
+        month = get_month(date_string[2:4])
+        year = date_string[5:8]
+        return datetime(year, month, day).date()
+    else:
+        return ''
+
+def get_month(month_string):
+    if month_string == 'jan':
+        return '1'
+    if month_string == 'feb':
+        return '2'
+    if month_string == 'mar':
+        return '3'
+    if month_string == 'apr':
+        return '4'
+    if month_string == 'may':
+        return '5'
+    if month_string == 'jun':
+        return '6'
+    if month_string == 'jul':
+        return '7'
+    if month_string == 'aug':
+        return '8'
+    if month_string == 'sep':
+        return '9'
+    if month_string == 'oct':
+        return '10'
+    if month_string == 'nov':
+        return '11'
+    if month_string == 'dec':
+        return '12'
