@@ -1,6 +1,7 @@
 from models import Patient
 
 def handle_uploaded_file(f):
+    #TODO: return bool from this -- error or success
     first_line = True
     for line in f:
         # TODO: What will the first line normally be? Headers?
@@ -11,15 +12,29 @@ def handle_uploaded_file(f):
             for p in all_patients:
                 if p.id == patient_id:
                     p.delete()
-            #TODO: when the model changes this needs to too
-            patient = Patient(id=patient_id, date=get_date(split[1]), 
-                              std=get_date(split[2]), program=split[3],
-                              age=split[4], sex=split[5], 
-                              enroll_d=get_date(split[6]), f250v=split[7],
-                              f250d=get_date(split[8]))
+            patient = Patient(id=patient_id, height=get_value(split[1]), 
+                              egplandt=get_date(split[2]), 
+                              egpregdt=get_date(split[3]),
+                              egstage4dt=get_date(split[4]), 
+                              egcd4dt=get_date(split[5]), 
+                              egcd4v=get_value(split[6]), 
+                              edate=get_date(split[7]),
+                              egweight=get_value(split[8]), 
+                              enroldt=get_date(split[9]),
+                              lastdt=get_date(split[10]), 
+                              returndt=get_date(split[11]),
+                              startdt=get_date(split[12]), 
+                              startgprg=split[13])
             patient.save()
         else:
             first_line = False
+      
+def get_value(input):
+    # for integers and decimals handles empty string case by returning none
+    if input == '':
+        return None
+    else:
+        return input
 
 def get_date(date_string):
     if len(date_string) >0:
