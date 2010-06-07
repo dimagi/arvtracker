@@ -5,9 +5,9 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^patients/$', 'arvtracker.patients.views.index'),
-    (r'^patients/upload/$', 'arvtracker.patients.views.upload'),
-    (r'^patients/uploader/$', 'arvtracker.patients.views.uploader'),
+    (r'^$', 'arvtracker.patients.views.index'),
+    (r'^upload/$', 'arvtracker.patients.views.upload'),
+    (r'^uploader/$', 'arvtracker.patients.views.uploader'),
     # Example:
     # (r'^waiting/', include('waiting.foo.urls')),
 

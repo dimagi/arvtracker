@@ -3,6 +3,7 @@ from models import Patient
 def handle_uploaded_file(f):
     result = 'Success' 
     first_line = True
+    all_patients = Patient.objects.all()
     for line in f:
         # The first line of the file will always be headers
         if not first_line:
@@ -10,7 +11,6 @@ def handle_uploaded_file(f):
             split = line.split('\t') 
             if len(split) == 14:
                 patient_id = split[0]
-                all_patients = Patient.objects.all()
                 for p in all_patients:
                     if p.id == patient_id:
                         p.delete()
