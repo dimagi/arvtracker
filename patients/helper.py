@@ -1,18 +1,20 @@
 from models import Patient
 
 def handle_uploaded_file(f):
-    #TODO: return bool from this -- error or success
+    result = 'Success' 
     first_line = True
     for line in f:
-        # TODO: What will the first line normally be? Headers?
+        # The first line of the file will always be headers
         if not first_line:
-            split = line.split('\t') #TODO: can there be other separators?
-            patient_id = split[0]
-            all_patients = Patient.objects.all()
-            for p in all_patients:
-                if p.id == patient_id:
-                    p.delete()
-            patient = Patient(id=patient_id, height=get_value(split[1]), 
+            # The data will always be separated by tabs
+            split = line.split('\t') 
+            if len(split) == 14:
+                patient_id = split[0]
+                all_patients = Patient.objects.all()
+                for p in all_patients:
+                    if p.id == patient_id:
+                        p.delete()
+                patient = Patient(id=patient_id, height=get_value(split[1]), 
                               egplandt=get_date(split[2]), 
                               egpregdt=get_date(split[3]),
                               egstage4dt=get_date(split[4]), 
@@ -25,9 +27,13 @@ def handle_uploaded_file(f):
                               returndt=get_date(split[11]),
                               startdt=get_date(split[12]), 
                               startgprg=split[13])
-            patient.save()
+                #TODO: there will be one more field coming
+                patient.save()
+            else:
+                result = 'At least one line of the file did not have the correct number of entries and was not added'
         else:
             first_line = False
+    return result
       
 def get_value(input):
     # for integers and decimals handles empty string case by returning none

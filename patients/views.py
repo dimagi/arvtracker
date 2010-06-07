@@ -13,7 +13,5 @@ def uploader(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            result = 'Upload succeeded.'
-    # code for parsing csv file
+            result = handle_uploaded_file(request.FILES['file'])
     return render_to_response('patients/uploader.html', {'result': result})
