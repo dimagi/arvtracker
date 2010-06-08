@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^$', 'arvtracker.patients.views.index'),
     (r'^upload/$', 'arvtracker.patients.views.upload'),
     (r'^uploader/$', 'arvtracker.patients.views.uploader'),
+    (r'^data/$', 'arvtracker.patients.views.data'),
     # Example:
     # (r'^waiting/', include('waiting.foo.urls')),
 

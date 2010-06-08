@@ -1,0 +1,38 @@
+<html>
+<table border="1">
+<tr>
+<th>id</th>
+<th>height</th>
+<th>egplandt</th>
+<th>egpregdt</th>
+<th>egstage4dt</th>
+<th>egcd4dt</th>
+<th>egcd4v</th>
+<th>edate</th>
+<th>egweight</th>
+<th>enroldt</th>
+<th>lastdt</th>
+<th>returndt</th>
+<th>startdt</th>
+<th>startgprg</th>
+</tr>
+{% for p in patients %}
+<tr>
+<td>{{ p.id }}</td>
+<td>{{ p.height}}</td>
+<td>{{ p.egplandt }}</td>
+<td>{{ p.egpregdt }}</td>
+<td>{{ p.egstage4dt }}</td>
+<td>{{ p.egcd4dt }}</td>
+<td>{{ p.egcd4v }}</td>
+<td>{{ p.edate }}</td>
+<td>{{ p.egweight }}</td>
+<td>{{ p.enroldt }}</td>
+<td>{{ p.lastdt }}</td>
+<td>{{ p.returndt }}</td>
+<td>{{ p.startdt }}</td>
+<td>{{ p.startgprg }}</td>
+</tr>
+{% endfor %}
+</table>
+</html>
