@@ -43,11 +43,4 @@ def charts(request):
         url = get_starting_by_stakeholder(request)
     if chart == 'percentage_initiations':
         url = get_percentage_initiations(request)
-    # TODO: pass some kind of data from here to template, to chart
-    #url = "http://chart.apis.google.com/chart?"
-    #url += "chs=500x200&" # chart size
-    #url += "chd=t:60,30,10,70,25,32,40&" # chart data
-    #url += "cht=bvg&" # vertical bar graph
-    #url += "chxt=x,y&" # show x and y axes
-    #url += "chxl=0:|Jan|Feb|Mar|Apr|May|Jun|Jul" # values for bars on x axis
     return render_to_response('patients/charts.html', {'url': url})

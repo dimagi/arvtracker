@@ -97,9 +97,11 @@ def get_starting_by_stakeholder(request):
     return get_stakeholder_url(counts, weeks, months)
 
 def get_percentage_initiations(request):
-    url = ''
     weeks = get_weeks(request)
-    return url
+    counts = {'moh': weeks.copy(), 'ftf': weeks.copy(), 'mjap': weeks.copy(),
+              'total': weeks.copy()}
+    sum_counts(counts, weeks)
+    return get_percentage_url(counts, weeks)
 
 def sum_counts(counts, weeks):
     patients = Patient.objects.all()
@@ -120,7 +122,7 @@ def get_stakeholder_url(counts, weeks, months):
     url = "http://chart.apis.google.com/chart?"
     url += "chtt=Weekly+Number+of+Patients|Starting+ART+by+Stakeholder&"
     url += "chs=1000x200&" # chart size
-    url += "chbh=20,0,0&" #TODO: tweak this smaller
+    url += "chbh=20,0,0&" # bar widths and spaces
     data = "chd=t:"
     legend = "&chdl="
     for program in counts.keys():
@@ -147,7 +149,7 @@ def get_stakeholder_url(counts, weeks, months):
     i = 0
     for key in keys: #TODO: or could loop by month but spacing is tricky
         if i == 0:
-            xaxis += str(key) #TODO: try leaving out every couple of these
+            xaxis += str(key) 
             i += 1
         elif i == 1: i += 1
         elif i == 2: i += 1
@@ -157,6 +159,54 @@ def get_stakeholder_url(counts, weeks, months):
     url += xaxis
     #url += "&chxp=0,0,80" #TODO: base this on number of months and size of graph
     return url
+
+def get_percentage_url(counts, weeks):
+    keys = weeks.keys()
+    keys.sort()
+    max_number = get_max(counts)
+    url = "http://chart.apis.google.com/chart?"
+    url += "chtt=Percent+of+Monthly+ART+Initiations|by+Stakeholder&"
+    url += "chs=1000x200&" # chart size
+    url += "chbh=20,5,0&" # bar and space widths
+    data = "chd=t:"
+    legend = "&chdl="
+    total = counts["total"]
+    for program in counts.keys():
+        if program != "total":
+            legend += program + "|"
+            weeks_counts = counts[program]
+            for key in keys:
+                data += get_percentage(weeks_counts[key], total[key])
+            data = data.strip(',')
+            data += "|"
+    data = data.strip('|')
+    legend = legend.strip('|')
+    url += legend + "&"
+    data += "&"
+    url += data
+    url += "cht=bvs&" # vertical bar graph, stacked
+    url += "chco=4D89F9,C6D9FD,0000FF&" # series colors
+    url += "chxt=x,y&" # show x and y axes
+    xaxis = "chxl=0:|"
+    i = 0
+    for key in keys: #TODO: or could loop by month but spacing is tricky
+        if i == 0:
+            xaxis += str(key)
+            i += 1
+        elif i == 1: i += 1
+        elif i == 2: i += 1
+        elif i == 3: i = 0
+        xaxis += "|"
+    xaxis = xaxis.strip('|')
+    url += xaxis
+    return url
+
+def get_percentage(part, total):
+    if total != 0:
+        percent = part*100/total
+    else:
+        percent = 0
+    return str(percent) + ","
 
 def get_max(counts):
     largest_number = 0
@@ -213,7 +263,6 @@ def get_weeks(request):
                 end_year = int(item[1])
             if item[0] == 'end_month':
                 end_month = int(item[1])
-    #try making the first and last date and increment to find all those in between
     first_date = datetime(start_year, start_month, 01).date()
     nextmonth = end_month + 1
     if nextmonth == 13:
