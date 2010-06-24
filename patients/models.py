@@ -22,3 +22,4 @@ class Patient(models.Model):
     returndt = models.DateField()
     startdt = models.DateField(null=True)
     startgprg = models.CharField(max_length=200)
+    # TODO: there will be one more field coming

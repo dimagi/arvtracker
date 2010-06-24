@@ -1,0 +1,61 @@
+<h1>Select chart and date range</h1>
+
+<form action="{% url patients.views.charts %}" method="post">
+<div>
+Chart: <select name="chart">
+{% for chart in context.charts %}
+<option value="{{ chart }}">{{ chart }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div>
+Start Month: <select name="start_month">
+<option value="01">January</option>
+<option value="02">February</option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+
+Start Year: <select name="start_year">
+{% for year in context.years %}
+<option value="{{ year }}">{{ year }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div>
+End Month: <select name="end_month">
+<option value="01">January</option>
+<option value="02">February</option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+
+End Year: <select name="end_year">
+{% for year in context.years %}
+<option value="{{ year }}">{{ year }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div>
+<input type="submit" value="Get Chart" />
+</div>
+</form>

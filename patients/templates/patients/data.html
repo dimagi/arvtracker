@@ -19,19 +19,19 @@
 {% for p in patients %}
 <tr>
 <td>{{ p.id }}</td>
-<td>{{ p.height}}</td>
-<td>{{ p.egplandt }}</td>
-<td>{{ p.egpregdt }}</td>
-<td>{{ p.egstage4dt }}</td>
-<td>{{ p.egcd4dt }}</td>
-<td>{{ p.egcd4v }}</td>
+<td>{{ p.height|default:'' }}</td>
+<td>{{ p.egplandt|default:'' }}</td>
+<td>{{ p.egpregdt|default:'' }}</td>
+<td>{{ p.egstage4dt|default:'' }}</td>
+<td>{{ p.egcd4dt|default:'' }}</td>
+<td>{{ p.egcd4v|default:'' }}</td>
 <td>{{ p.edate }}</td>
-<td>{{ p.egweight }}</td>
-<td>{{ p.enroldt }}</td>
+<td>{{ p.egweight|default:'' }}</td>
+<td>{{ p.enroldt|default:'' }}</td>
 <td>{{ p.lastdt }}</td>
 <td>{{ p.returndt }}</td>
-<td>{{ p.startdt }}</td>
-<td>{{ p.startgprg }}</td>
+<td>{{ p.startdt|default:'' }}</td>
+<td>{{ p.startgprg|default:'' }}</td>
 </tr>
 {% endfor %}
 </table>
