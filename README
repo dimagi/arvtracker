@@ -7,3 +7,9 @@ DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
+
+For whoever next works on this project, here is a summary of the current code state:
+The arvtracker project consists of two parts. The first part is for uploading a csv file and the second is for generating graphs based on the uploaded data. The only model is 'Patient' which consists of each piece of data for a row within the data files which are uploaded. The code for uploading files can be found in views.py|uploader() and helper.py|handle_uploaded_file(). Each line of the file is parsed and entered as a row in the patient database table. The code for generating graphs is in views.py|select_chart(),charts() and pretty much everything else in helper.py. The user enters a date range and selects a graph. The data for that graph is gathered and calculated (get_weeks(),sum_counts()). Then the url for producing a google chart is constructed passing in that data (get_stakeholder_url(),get_percentage_url()). 
+Information about the google charts api can be found here: http://code.google.com/apis/charttools/index.html. 
+If you are new to Django I suggest taking a look at this tutorial: http://docs.djangoproject.com/en/dev/intro/tutorial01/. It will help explain the code structure.
